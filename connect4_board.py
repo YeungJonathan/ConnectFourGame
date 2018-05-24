@@ -6,7 +6,15 @@ class Board:
 		self.board = [['.' for x in range(column)]for y in range(row)]
 		self.__row = row
 		self.__column = column
-		
+
+	def __str__(self):
+		string = ""
+		for item in self.board:
+			for position in item:
+				string += position
+			string += "\n"
+		return string
+
 	def printPretty(self):
 		for item in self.board:
 			for position in item:
@@ -18,3 +26,6 @@ class Board:
 		
 	def getColumn(self):
 		return copy.deepcopy(self.__column)
+
+a = Board(7,8)
+print(a)
