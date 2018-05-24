@@ -18,3 +18,10 @@ class Board:
 		
 	def getColumn(self):
 		return copy.deepcopy(self.__column)
+	
+	def insert(self, insert_column, player):
+		for i in range(self.getRow()-1, -1, -1):
+			if self.board[i][insert_column] == '.':
+				self.board[i][insert_column] = player.getSymbol()
+				return
+		

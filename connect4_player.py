@@ -1,7 +1,8 @@
 import copy
-class player:
+
+class Player:
 	
-	def __init__(self, player_num = 1, symbol):
+	def __init__(self, player_num, symbol):
 		self.__playerNum = player_num
 		self.__symbol = symbol
 	
