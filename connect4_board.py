@@ -27,5 +27,34 @@ class Board:
 	def getColumn(self):
 		return copy.deepcopy(self.__column)
 
+	#TODO: method will take a player argument to check for player's symbol
+	#TODO: refactor horizontal, vertical, and diagonal checks
+	def win(self):
+		for i in range(len(self.board) - 3):
+			for j in range(len(self.board[i]) - 3):
+				if self.board[i][j] == 'O':
+					#check horizontal
+					if self.board[i][j+1] == 'O' and self.board[i][j+2] == 'O' and self.board[i][j+3] == 'O':
+						return True
+					#check vertical
+					if self.board[i + 1][j] == 'O' and self.board[i + 2][j] == 'O' and self.board[i + 3][j] == 'O':
+						return True
+					#check diagonals
+					if self.board[i + 1][j + 1] == 'O' and self.board[i + 2][j + 2] == 'O' and self.board[i + 3][j + 3] == 'O':
+						return True
+					return False
+				elif self.board[i][j] == 'X':
+					#check horizontal
+					if self.board[i][j+1] == 'X' and self.board[i][j+2] == 'X' and self.board[i][j+3] == 'X':
+						return True
+					#check vertical
+					if self.board[i + 1][j] == 'X' and self.board[i + 2][j] == 'X' and self.board[i + 3][j] == 'X':
+						return True
+					#check diagonals
+					if self.board[i + 1][j + 1] == 'X' and self.board[i + 2][j + 2] == 'X' and self.board[i + 3][j + 3] == 'X':
+						return True
+					return False
+
+
 a = Board(7,8)
 print(a)
