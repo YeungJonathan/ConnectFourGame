@@ -15,12 +15,6 @@ class Board:
 				string += ' '
 			string += "\n"
 		return string
-
-#	def printPretty(self):
-#		for item in self.board:
-#			for position in item:
-#				print(position, end=" ")
-#			print("")
 	
 	def getRow(self):
 		return copy.deepcopy(self.__row)
@@ -60,6 +54,6 @@ class Board:
 		for i in range(self.getRow()-1, -1, -1):
 			if self.board[i][insert_column] == '.':
 				self.board[i][insert_column] = player.getSymbol()
-#				print(self.board)
+				print(self.__str__())
 				return
 		
