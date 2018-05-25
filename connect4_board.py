@@ -15,11 +15,11 @@ class Board:
 			string += "\n"
 		return string
 
-	def printPretty(self):
-		for item in self.board:
-			for position in item:
-				print(position, end=" ")
-			print("")
+#	def printPretty(self):
+#		for item in self.board:
+#			for position in item:
+#				print(position, end=" ")
+#			print("")
 	
 	def getRow(self):
 		return copy.deepcopy(self.__row)
