@@ -1,5 +1,6 @@
 import copy
 
+
 class Board:
 
 	def __init__(self, row = 6, column = 7):
@@ -16,11 +17,12 @@ class Board:
 			string += "\n"
 		return string
 
-#	def printPretty(self):
-#		for item in self.board:
-#			for position in item:
-#				print(position, end=" ")
-#			print("")
+	def insert(self, insert_column, player):
+		for i in range(self.__row - 1, -1, -1):
+			if self.board[i][insert_column] == '.':
+				self.board[i][insert_column] = player.getSymbol()
+				#				print(self.board)
+				return
 	
 	def getRow(self):
 		return copy.deepcopy(self.__row)
@@ -28,38 +30,44 @@ class Board:
 	def getColumn(self):
 		return copy.deepcopy(self.__column)
 
-	#TODO: method will take a player argument to check for player's symbol
-	#TODO: refactor horizontal, vertical, and diagonal checks
-	def win(self):
-		for i in range(len(self.board) - 3):
-			for j in range(len(self.board[i]) - 3):
-				if self.board[i][j] == 'O':
-					#check horizontal
-					if self.board[i][j+1] == 'O' and self.board[i][j+2] == 'O' and self.board[i][j+3] == 'O':
+	def checkHorizontal(self, row, col, symbol):
+		for next_index in range(1, 4):
+			if self.board[row][col + next_index] != symbol:
+				return False
+		return True
+
+	def checkVertical(self, row, col, symbol):
+		for next_index in range(1, 4):
+			if self.board[row - next_index][col] != symbol:
+				return False
+		return True
+
+	def checkRightDiagonal(self, row, col, symbol):
+		for next_index in range(1, 4):
+			if self.board[row - next_index][col + next_index] != symbol:
+				return False
+		return True
+
+	def checkLeftDiagonal(self, row, col, symbol):
+		for next_index in range(1, 4):
+			if self.board[row - next_index][col - next_index] != symbol:
+				return False
+		return True
+
+	def win(self, player):
+		symbol = player.getSymbol()
+		for row in range(self.__row - 1, -1, -1):
+			for col in range(self.__column - 1, -1, -1):
+				if row - 3 >= 0:
+					if self.checkVertical(row, col, symbol):
 						return True
-					#check vertical
-					if self.board[i + 1][j] == 'O' and self.board[i + 2][j] == 'O' and self.board[i + 3][j] == 'O':
-						return True
-					#check diagonals
-					if self.board[i + 1][j + 1] == 'O' and self.board[i + 2][j + 2] == 'O' and self.board[i + 3][j + 3] == 'O':
-						return True
-					return False
-				elif self.board[i][j] == 'X':
-					#check horizontal
-					if self.board[i][j+1] == 'X' and self.board[i][j+2] == 'X' and self.board[i][j+3] == 'X':
-						return True
-					#check vertical
-					if self.board[i + 1][j] == 'X' and self.board[i + 2][j] == 'X' and self.board[i + 3][j] == 'X':
-						return True
-					#check diagonals
-					if self.board[i + 1][j + 1] == 'X' and self.board[i + 2][j + 2] == 'X' and self.board[i + 3][j + 3] == 'X':
-						return True
-					return False
-	
-	def insert(self, insert_column, player):
-		for i in range(self.getRow()-1, -1, -1):
-			if self.board[i][insert_column] == '.':
-				self.board[i][insert_column] = player.getSymbol()
-#				print(self.board)
-				return
-		
+					if col + 3 <= self.__column - 1:
+						if self.checkRightDiagonal(row, col, symbol):
+							return True
+					if col - 3 >= 0:
+						if self.checkLeftDiagonal(row, col, symbol):
+							return True
+				if col + 3 <= self.__column - 1:
+					if self.checkHorizontal(row, col, symbol):
+							return True
+		return False
