@@ -26,6 +26,7 @@ class Board:
 		
 	def getColumn(self):
 		return copy.deepcopy(self.__column)
+<<<<<<< HEAD
 
 	#TODO: method will take a player argument to check for player's symbol
 	#TODO: refactor horizontal, vertical, and diagonal checks
@@ -58,3 +59,12 @@ class Board:
 
 a = Board(7,8)
 print(a)
+=======
+	
+	def insert(self, insert_column, player):
+		for i in range(self.getRow()-1, -1, -1):
+			if self.board[i][insert_column] == '.':
+				self.board[i][insert_column] = player.getSymbol()
+				return
+		
+>>>>>>> 06b64cda0416d2de9c338ff24f0da448ee655e00
