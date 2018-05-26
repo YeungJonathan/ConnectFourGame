@@ -17,12 +17,14 @@ class Board:
 			string += "\n"
 		return string
 
+
 	def insert(self, insert_column, player):
 		for i in range(self.__row - 1, -1, -1):
 			if self.board[i][insert_column] == '.':
 				self.board[i][insert_column] = player.getSymbol()
-				#				print(self.board)
+				print(self.board)
 				return
+      
 	
 	def getRow(self):
 		return copy.deepcopy(self.__row)
@@ -61,6 +63,7 @@ class Board:
 				if row - 3 >= 0:
 					if self.checkVertical(row, col, symbol):
 						return True
+
 					if col + 3 <= self.__column - 1:
 						if self.checkRightDiagonal(row, col, symbol):
 							return True
