@@ -22,7 +22,6 @@ class Board:
 		for i in range(self.__row - 1, -1, -1):
 			if self.board[i][insert_column] == '.':
 				self.board[i][insert_column] = player.getSymbol()
-				print(self.board)
 				return
       
 	

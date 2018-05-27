@@ -26,14 +26,16 @@ class Driver:
 	def tick(self):
 		starter, second = self.decideStart()
 		while True:
+			print(self.board)
 			userinput = self.prompt()
 			self.board.insert(userinput, starter)
-			if self.board.win():
+			if self.board.win(self.p1):
 				return
 			
+			print(self.board)
 			userinput = self.prompt()
 			self.board.insert(userinput, second)
-			if self.board.win():
+			if self.board.win(self.p2):
 				return
 				
 if __name__ == '__main__':
