@@ -30,12 +30,14 @@ class Driver:
 			userinput = self.prompt()
 			self.board.insert(userinput, starter)
 			if self.board.win(self.p1):
+				print('Player 1 win')
 				return
 			
 			print(self.board)
 			userinput = self.prompt()
 			self.board.insert(userinput, second)
 			if self.board.win(self.p2):
+				print('Player 2 win')
 				return
 				
 if __name__ == '__main__':
