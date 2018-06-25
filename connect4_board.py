@@ -1,6 +1,5 @@
 import copy
 
-
 class Board:
 
 	def __init__(self, row = 6, column = 7):
@@ -17,59 +16,113 @@ class Board:
 			string += "\n"
 		return string
 
-
-	def insert(self, insert_column, player):
+	def findRow(self, insert_column, player):
 		for i in range(self.__row - 1, -1, -1):
 			if self.board[i][insert_column] == '.':
 				self.board[i][insert_column] = player.getSymbol()
-				return
+				return i
       
-	
 	def getRow(self):
 		return copy.deepcopy(self.__row)
 		
 	def getColumn(self):
 		return copy.deepcopy(self.__column)
 
-	def checkHorizontal(self, row, col, symbol):
-		for next_index in range(1, 4):
-			if self.board[row][col + next_index] != symbol:
-				return False
-		return True
+class Player:
+	
+	def __init__(self, player_num, symbol):
+		self.__playerNum = player_num
+		self.__symbol = symbol
+		self.__moves = [[] for x in range(7)]
+	
+	def getPlayerNum(self):
+		return copy.deepcopy(self.__playerNum)
+	
+	def getSymbol(self):
+		return copy.deepcopy(self.__symbol)
 
-	def checkVertical(self, row, col, symbol):
-		for next_index in range(1, 4):
-			if self.board[row - next_index][col] != symbol:
-				return False
-		return True
+	def getMoves(self):
+		return copy.deepcopy(self.__moves)
+		
+	def addMoves(self, row, column):
+		self.__moves[column].append(row) 
+		print(self.__moves)
+		
+	def checkWin(self):
+		if self.checkHorizontal() or self.checkVertical() or self.checkDiagonal1() or self.checkDiagonal2():
+			return True
 
-	def checkRightDiagonal(self, row, col, symbol):
-		for next_index in range(1, 4):
-			if self.board[row - next_index][col + next_index] != symbol:
-				return False
-		return True
-
-	def checkLeftDiagonal(self, row, col, symbol):
-		for next_index in range(1, 4):
-			if self.board[row - next_index][col - next_index] != symbol:
-				return False
-		return True
-
-	def win(self, player):
-		symbol = player.getSymbol()
-		for row in range(self.__row - 1, -1, -1):
-			for col in range(self.__column - 1, -1, -1):
-				if row - 3 >= 0:
-					if self.checkVertical(row, col, symbol):
-						return True
-
-					if col + 3 <= self.__column - 1:
-						if self.checkRightDiagonal(row, col, symbol):
-							return True
-					if col - 3 >= 0:
-						if self.checkLeftDiagonal(row, col, symbol):
-							return True
-				if col + 3 <= self.__column - 1:
-					if self.checkHorizontal(row, col, symbol):
-							return True
+	def checkHorizontal(self):
+		num = 0
+		for i in range(len(self.__moves) - 3):
+			for j in range(len(self.__moves[i])):
+				index = i
+				num = self.__moves[i][j]
+				count = 1
+				for k in range(1,4):
+					try:
+						for item in self.__moves[index+k]:
+							if item == num:
+								count += 1
+					except:
+						break
+				if count == 4:
+					return True
 		return False
+		
+	def checkVertical(self):
+		num = 0 
+		for i in range(len(self.__moves)):
+			if len(self.__moves[i]) >= 4:
+				for j in range(len(self.__moves[i])):
+					count = 1
+					index = j
+					num = self.__moves[i][index]
+					for k in range(1,4):
+						try:
+							if self.__moves[i][index + k] == (num - k):
+								count += 1
+							else:
+								break
+						except:
+							break
+					if count == 4:
+						return True
+		return False
+		
+	def checkDiagonal1(self):
+		for i in range(len(self.__moves)):
+			if len(self.__moves[i]) > 0:
+				for j in range(len(self.__moves[i])):
+					index = j
+					num = self.__moves[i][j]
+					count = 1
+					for k in range(1,4):
+						try:
+							for item in self.__moves[i+k]:
+								if item == num-k:
+									count+=1
+						except:
+							break
+					if count == 4:
+						return True
+		return False
+		
+	def checkDiagonal2(self):
+		for i in range(len(self.__moves)):
+			if len(self.__moves[i]) > 0:
+				for j in range(len(self.__moves[i])):
+					index = j
+					num = self.__moves[i][j]
+					count = 1
+					for k in range(1,4):
+						try:
+							for item in self.__moves[i+k]:
+								if item == num+k:
+									count+=1
+						except:
+							break
+					if count == 4:
+						return True
+		return False
+		

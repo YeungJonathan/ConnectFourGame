@@ -1,5 +1,5 @@
 from connect4_board import Board
-from connect4_player import Player
+from connect4_board import Player
 import random
 
 class Driver:
@@ -10,7 +10,9 @@ class Driver:
 		self.board = Board()
 	
 	def prompt(self):
-		userInput = int(input('Please input column to insert: '))
+		userInput = -1
+		while userInput < 0 or userInput > 6:
+			userInput = int(input('Please input column to insert (0-6): '))
 		return userInput
 		
 	def decideStart(self):
@@ -25,21 +27,25 @@ class Driver:
 		
 	def tick(self):
 		starter, second = self.decideStart()
+		print(self.board)
 		while True:
-			print(self.board)
 			userinput = self.prompt()
-			self.board.insert(userinput, starter)
-			if self.board.win(self.p1):
-				print('Player 1 win')
+			row = self.board.findRow(userinput, starter)
+			starter.addMoves(row, userinput)
+			print(self.board)
+			if starter.checkWin():
+				print('P1 Won')
 				return
 			
-			print(self.board)
 			userinput = self.prompt()
-			self.board.insert(userinput, second)
-			if self.board.win(self.p2):
-				print('Player 2 win')
+			row = self.board.findRow(userinput, second)
+			second.addMoves(row, userinput)
+			print(self.board)
+			if secondi.checkWin():
+				print('P1 Won')
 				return
-				
+
+
 if __name__ == '__main__':
 	main = Driver()
 	main.tick()
