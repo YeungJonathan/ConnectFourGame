@@ -41,8 +41,8 @@ class Driver:
 			row = self.board.findRow(userinput, second)
 			second.addMoves(row, userinput)
 			print(self.board)
-			if secondi.checkWin():
-				print('P1 Won')
+			if second.checkWin():
+				print('P2 Won')
 				return
 
 
