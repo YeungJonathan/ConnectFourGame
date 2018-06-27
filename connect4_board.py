@@ -27,6 +27,9 @@ class Board:
 		
 	def getColumn(self):
 		return copy.deepcopy(self.__column)
+	
+	def isFull(self):
+		return all(i != '.' for i in self.board[0])
 
 class Player:
 	
@@ -128,4 +131,5 @@ class Player:
 					if count == 4:
 						return True
 		return False
+	
 		

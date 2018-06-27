@@ -59,17 +59,17 @@ class Driver:
 	
 	def tick(self):
 		starter, second = self.decideStart()
-		win = False
+		endGame = False
 		self.printBoard()
-		while not win:
+		while not endGame:
 			#starter insert
-			win = self.playerInsert(starter)
-			if win is True:
-				return 		
+			endGame = self.playerInsert(starter) or self.board.isFull()
+			if endGame is True:
+				break 		
 			#second insert
-			win = self.playerInsert(second)
-
-
+			endGame = self.playerInsert(second) or self.board.isFull()
+		if self.board.isFull():
+			print('The game is tied!')
 
 if __name__ == '__main__':
 	main = Driver()
