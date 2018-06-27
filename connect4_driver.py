@@ -11,15 +11,21 @@ class Driver:
 		self.p2 = Player(2,'O', playerTwo)
 		self.board = Board()
 	
-	def prompt(self, name):
-		userInput = int(input(name+' Insert Column (1-7): '))
-		while userInput < 1 or userInput > 7 or self.board.board[0][userInput-1]!='.':
-			if self.board.board[0][userInput-1]!='.':
+	def prompt(self, name):				
+		while True:
+			try:
+				userInput = int(input(name+' Insert Column (1-7): '))
+				if not (1 <= userInput <= 7):
+					raise ValueError
+				if self.board.board[0][userInput-1]!='.':
+					raise Exception
+			except ValueError:
+				print('Please enter an integer from 0-7')
+				continue
+			except Exception:
 				print('Column reached maximum. ',end = '')
-			else:
-				print('Wrong input! ', end = '')
-			userInput = int(input(name+' Insert Column (1-7): '))
-		return userInput-1
+				continue		
+			return userInput-1
 		
 	def decideStart(self):
 		#player 1 start if random integer is even
