@@ -24,15 +24,20 @@ class Driver:
 		else:
 			print('Player 2 Start!')
 			return self.p2, self.p1
+			
+	def printBoard(self):
+		print(self.board, end = '')
+		print('-------------')
+		print('0 1 2 3 4 5 6')
 		
 	def tick(self):
 		starter, second = self.decideStart()
-		print(self.board)
+		self.printBoard()
 		while True:
 			userinput = self.prompt()
 			row = self.board.findRow(userinput, starter)
 			starter.addMoves(row, userinput)
-			print(self.board)
+			self.printBoard()
 			if starter.checkWin():
 				print('P1 Won')
 				return
@@ -40,7 +45,7 @@ class Driver:
 			userinput = self.prompt()
 			row = self.board.findRow(userinput, second)
 			second.addMoves(row, userinput)
-			print(self.board)
+			self.printBoard()
 			if second.checkWin():
 				print('P2 Won')
 				return

@@ -46,7 +46,6 @@ class Player:
 		
 	def addMoves(self, row, column):
 		self.__moves[column].append(row) 
-		print(self.__moves)
 		
 	def checkWin(self):
 		if self.checkHorizontal() or self.checkVertical() or self.checkDiagonal1() or self.checkDiagonal2():
