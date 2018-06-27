@@ -5,50 +5,64 @@ import random
 class Driver:
 
 	def __init__(self):
-		self.p1 = Player(1,'X')
-		self.p2 = Player(2, 'O')
+		playerOne = input('Input Player 1 name: ')
+		playerTwo = input('Input Player 2 name: ')
+		self.p1 = Player(1,'X', playerOne)
+		self.p2 = Player(2,'O', playerTwo)
 		self.board = Board()
 	
-	def prompt(self):
-		userInput = -1
-		while userInput < 0 or userInput > 6:
-			userInput = int(input('Please input column to insert (0-6): '))
-		return userInput
+	def prompt(self, name):
+		userInput = int(input(name+' Insert Column (1-7): '))
+		while userInput < 1 or userInput > 7 or self.board.board[0][userInput-1]!='.':
+			if self.board.board[0][userInput-1]!='.':
+				print('Column reached maximum. ',end = '')
+			else:
+				print('Wrong input! ', end = '')
+			userInput = int(input(name+' Insert Column (1-7): '))
+		return userInput-1
 		
 	def decideStart(self):
 		#player 1 start if random integer is even
 		#player 2 if odd
 		if (random.randint(0,9) % 2 == 0): 
-			print('Player 1 Start!')
+			print(self.p1.getPlayerName(),'Start!')
 			return self.p1, self.p2
 		else:
-			print('Player 2 Start!')
+			print(self.p2.getPlayerName(),'Start!')
 			return self.p2, self.p1
 			
 	def printBoard(self):
 		print(self.board, end = '')
 		print('-------------')
-		print('0 1 2 3 4 5 6')
+		print('1 2 3 4 5 6 7')
 		
+	def playerInsert(self, player):
+		'''
+		Method to insert player moves
+		Method to change update the board
+		'''
+		userinput = self.prompt(player.getPlayerName())
+		row = self.board.findRow(userinput, player)
+		player.addMoves(row, userinput)
+		self.printBoard()
+		if player.checkWin():
+			print(player.getPlayerName(),'Won')
+			return True
+		return False
+
+	
 	def tick(self):
 		starter, second = self.decideStart()
+		win = False
 		self.printBoard()
-		while True:
-			userinput = self.prompt()
-			row = self.board.findRow(userinput, starter)
-			starter.addMoves(row, userinput)
-			self.printBoard()
-			if starter.checkWin():
-				print('P1 Won')
-				return
-			
-			userinput = self.prompt()
-			row = self.board.findRow(userinput, second)
-			second.addMoves(row, userinput)
-			self.printBoard()
-			if second.checkWin():
-				print('P2 Won')
-				return
+		while not win:
+			#starter insert
+			win = self.playerInsert(starter)
+			if win is True:
+				return 		
+			#second insert
+			win = self.playerInsert(second)
+
 
 
 if __name__ == '__main__':

@@ -30,10 +30,14 @@ class Board:
 
 class Player:
 	
-	def __init__(self, player_num, symbol):
+	def __init__(self, player_num, symbol, player):
 		self.__playerNum = player_num
 		self.__symbol = symbol
 		self.__moves = [[] for x in range(7)]
+		self.__name = player
+		
+	def getPlayerName(self):
+		return copy.deepcopy(self.__name)
 	
 	def getPlayerNum(self):
 		return copy.deepcopy(self.__playerNum)
