@@ -1,5 +1,3 @@
-import copy
-
 class Board:
 
 	def __init__(self, row = 6, column = 7):
@@ -23,10 +21,10 @@ class Board:
 				return i
       
 	def getRow(self):
-		return copy.deepcopy(self.__row)
+		return self.__row[:]
 		
 	def getColumn(self):
-		return copy.deepcopy(self.__column)
+		return self.__column[:]
 	
 	def isFull(self):
 		return all(i != '.' for i in self.board[0])
@@ -40,16 +38,16 @@ class Player:
 		self.__name = player
 		
 	def getPlayerName(self):
-		return copy.deepcopy(self.__name)
+		return self.__name
 	
 	def getPlayerNum(self):
-		return copy.deepcopy(self.__playerNum)
+		return self.__playerNum
 	
 	def getSymbol(self):
-		return copy.deepcopy(self.__symbol)
+		return self.__symbol
 
 	def getMoves(self):
-		return copy.deepcopy(self.__moves)
+		return self.__moves[:]
 		
 	def addMoves(self, row, column):
 		self.__moves[column].append(row) 
