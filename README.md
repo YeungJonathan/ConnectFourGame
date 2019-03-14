@@ -7,8 +7,8 @@ Steps to play:
 2. Ensure that python3 is downloaded in the computer
 3. Open and run the connect4_driver.py file
 
-#ToDo
+# ToDo
 - Implement AI bots 
 
-#Done
+# Done
 - Implemented the game
